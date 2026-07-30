@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "progressme.websocket.schema.json",
+  "title": "ProgressMe WebSocket protocol schemas",
+  "description": "JSON Schema definitions for the ProgressMe private WebSocket RPC protocol. Captured from sanitized first-party browser network captures (2026-07-28). Response bodies are not yet captured and remain untyped.",
+  "type": "object",
+  "$defs": {
+    "Envelope": {
+      "title": "Canonical request envelope",
+      "description": "All ProgressMe WebSocket operations use this envelope. Value is JSON.stringify(payload) — always a string.",
+      "type": "object",
+      "properties": {
+        "Controller": { "type": "string", "description": "WebSocket controller name (e.g. BookWsController)" },
+        "Method": { "type": "string", "description": "Method name (e.g. BookUpsert)" },
+        "ProjectName": { "type": "string", "description": "Project namespace (e.g. Books, Users, MainWs)" },
+        "RequestId": { "type": "string", "format": "uuid", "description": "Unique UUID per call for response correlation" },
+        "Value": { "type": "string", "description": "JSON.stringify(payload) or '\"\"' for empty payloads" }
+      },
+      "required": ["Controller", "Method", "ProjectName", "RequestId", "Value"]
+    },
+
+    "BookTags": {
+      "type": "object",
+      "properties": {
+        "BookId": { "type": "integer" },
+        "TagAge": { "type": "array", "items": {} },
+        "TagLevel": { "type": "array", "items": {} },
+        "TagType": { "type": "array", "items": {} }
+      }
+    },
+
+    "LessonTags": {
+      "type": "object",
+      "properties": {
+        "LessonId": { "type": "integer" },
+        "TagAge": { "type": "array", "items": {} },
+        "TagLevel": { "type": "array", "items": {} },
+        "TagType": { "type": "array", "items": {} },
+        "TagSkills": { "type": "array", "items": {} },
+        "TagTime": { "type": "array", "items": {} },
+        "Vocabulary": { "type": "string" },
+        "Grammar": { "type": "string" },
+        "Functions": { "type": "string" },
+        "Other": { "type": "string" }
+      }
+    },
+
+    "BookUpsertPayload": {
+      "title": "BookUpsert payload",
+      "description": "Id:null creates; non-null Id updates.",
+      "type": "object",
+      "properties": {
+        "Id": { "type": ["integer", "null"], "description": "null for create, existing ID for update" },
+        "Name": { "type": "string" },
+        "LanguageId": { "type": "integer" },
+        "Description": { "type": "string" },
+        "IsEnableGroupingLessons": { "type": "boolean" },
+        "IsEnableAccessBook": { "type": "boolean" },
+        "Number": { "type": "integer", "description": "Use -1 for default ordering" },
+        "Tags": { "$ref": "#/$defs/BookTags" },
+        "NoPhotoColor": { "type": "integer" },
+        "UserId": { "type": ["integer", "null"] },
+        "UserRole": { "type": ["integer", "null"] },
+        "SchoolId": { "type": ["integer", "null"] },
+        "FolderId": { "type": ["integer", "null"] }
+      },
+      "required": ["Id", "Name"]
+    },
+
+    "GetBookPayload": {
+      "type": "object",
+      "properties": {
+        "BookId": { "type": "integer" }
+      },
+      "required": ["BookId"]
+    },
+
+    "CopyBookPayload": {
+      "type": "object",
+      "properties": {
+        "BookId": { "type": "integer" },
+        "IsVisible": { "type": "boolean" },
+        "IsProtectedCopyright": { "type": "boolean" }
+      },
+      "required": ["BookId", "IsVisible", "IsProtectedCopyright"]
+    },
+
+    "GetBookCoursesPayload": {
+      "type": "object",
+      "description": "Payload for CourseWsController.GetBookCourses. Exact fields from books-only normalized capture.",
+      "additionalProperties": true
+    },
+
+    "LessonUpsertPayload": {
+      "title": "LessonUpsert payload",
+      "description": "Id:0 creates; non-zero Id updates.",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "integer", "description": "0 for create, existing ID for update" },
+        "Name": { "type": "string" },
+        "CourseId": { "type": "integer" },
+        "Text": { "type": "string" },
+        "Number": { "type": "integer" },
+        "Tags": { "$ref": "#/$defs/LessonTags" },
+        "Data": { "type": ["string", "null"] },
+        "NoPhotoColor": { "type": "integer" }
+      },
+      "required": ["Id", "Name", "CourseId", "Number"]
+    },
+
+    "GetCourseLessonsPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetLessonWithIdPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "ExerciseCommonFields": {
+      "type": "object",
+      "properties": {
+        "Id": { "type": "integer", "description": "0 for create" },
+        "Type": { "type": "integer", "description": "18=word-fill/drag, 5=test" },
+        "PersonalMaterialId": { "type": ["integer", "null"] },
+        "HomeworkLessonId": { "type": ["integer", "null"] },
+        "Number": { "type": "integer" },
+        "IsShowExerciseNumber": { "type": "boolean" },
+        "Name": { "type": "string" },
+        "IsAutoCheck": { "type": "boolean" },
+        "IsHidePupil": { "type": "boolean" },
+        "LessonSectionId": { "type": "integer" }
+      },
+      "required": ["Id", "Type", "LessonSectionId"]
+    },
+
+    "SaveExerciseWordFillPayload": {
+      "title": "SaveExercise payload — Type 18 (word-fill/drag)",
+      "allOf": [
+        { "$ref": "#/$defs/ExerciseCommonFields" },
+        {
+          "type": "object",
+          "properties": {
+            "Type": { "const": 18 },
+            "PasteWordByDrag": {
+              "type": "object",
+              "properties": {
+                "Text": { "type": "string", "description": "Exercise text with [word] placeholders and optional HTML em elements" }
+              },
+              "required": ["Text"]
+            }
+          },
+          "required": ["PasteWordByDrag"]
+        }
+      ]
+    },
+
+    "SaveExerciseTestPayload": {
+      "title": "SaveExercise payload — Type 5 (test)",
+      "allOf": [
+        { "$ref": "#/$defs/ExerciseCommonFields" },
+        {
+          "type": "object",
+          "properties": {
+            "Type": { "const": 5 },
+            "Test": {
+              "type": "object",
+              "properties": {
+                "IsEnabledTimer": { "type": "boolean" },
+                "TimerDuration": { "type": "integer" },
+                "IsEnabledPoints": { "type": "boolean" },
+                "Questions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Id": { "type": "integer" },
+                      "Points": { "type": "integer" },
+                      "Question": { "type": "string" },
+                      "Answers": { "type": "array", "items": { "type": "string" } },
+                      "QuestionAnswers": { "type": "array", "items": { "type": "string" }, "description": "\"true\"/\"\" flags matching Answers array" }
+                    },
+                    "required": ["Id", "Question", "Answers", "QuestionAnswers"]
+                  }
+                }
+              },
+              "required": ["Questions"]
+            }
+          },
+          "required": ["Test"]
+        }
+      ]
+    },
+
+    "LoadExercisesInMaterialPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetBookTagsPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetBookLessonTagsPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetSharingMaterialPayload": {
+      "type": "object",
+      "properties": {
+        "BookId": { "type": "integer" },
+        "LessonId": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+
+    "ToggleActiveHrefPayload": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Three booleans independently describe view, add, and protected-copy/add behavior."
+    },
+
+    "GetIdMaterialPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "LoginPayload": {
+      "title": "Login payload",
+      "description": "Credentials must come from environment variables, never hardcoded.",
+      "type": "object",
+      "properties": {
+        "Email": { "type": "string", "description": "${PROGRESSME_EMAIL}" },
+        "Password": { "type": "string", "description": "${PROGRESSME_PASSWORD}" },
+        "RememberMe": { "type": "boolean" },
+        "UserRole": { "type": "integer" },
+        "AuthToken": { "type": "string", "description": "${PROGRESSME_AUTH_TOKEN}" },
+        "CurrentDomain": { "type": "string", "description": "e.g. progressme.ru" },
+        "AccountRole": { "type": "integer" }
+      },
+      "required": ["Email", "Password", "RememberMe", "UserRole", "AuthToken", "CurrentDomain", "AccountRole"]
+    },
+
+    "GetCurrentUserPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetSettingsSourcePayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetUsersInfoForBookAccessStatusPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetIpInfoPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GetPersonalProfilePayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "GenericResponse": {
+      "title": "Generic response (uncaptured)",
+      "description": "Inbound response bodies have not been captured. This schema is intentionally untyped. Do not invent a response schema until correlated inbound frames are available.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "progressme.capability.json",
+  "title": "ProgressMe capability map",
+  "description": "Confirmed and missing capabilities for the ProgressMe/Edvibe WebSocket authoring surface, based on sanitized first-party browser captures (2026-07-28).",
+  "type": "object",
+  "properties": {
+    "slug": { "type": "string", "const": "progressme" },
+    "name": { "type": "string", "const": "ProgressMe" },
+    "protocol": { "type": "string", "const": "websocket-rpc" },
+    "status": { "type": "string", "const": "observed-private-websocket-authoring" },
+    "research_date": { "type": "string", "const": "2026-07-28" },
+    "areas": {
+      "type": "object",
+      "properties": {
+        "book": {
+          "type": "object",
+          "properties": {
+            "create": { "type": "string", "const": "confirmed", "description": "BookUpsert with Id:null" },
+            "read": { "type": "string", "const": "confirmed", "description": "GetBook" },
+            "list": { "type": "string", "const": "confirmed", "description": "GetPersonalBooks" },
+            "copy": { "type": "string", "const": "confirmed", "description": "CopyBook" },
+            "delete": { "type": "string", "const": "missing", "description": "No delete operation captured" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "course": {
+          "type": "object",
+          "properties": {
+            "read": { "type": "string", "const": "confirmed", "description": "GetBookCourses" },
+            "create": { "type": "string", "const": "missing", "description": "No course-upsert message captured" },
+            "update": { "type": "string", "const": "missing" },
+            "delete": { "type": "string", "const": "missing" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "lesson": {
+          "type": "object",
+          "properties": {
+            "create": { "type": "string", "const": "confirmed", "description": "LessonUpsert with Id:0" },
+            "read": { "type": "string", "const": "confirmed", "description": "GetLessonWithId" },
+            "list": { "type": "string", "const": "confirmed", "description": "GetCourseLessons" },
+            "delete": { "type": "string", "const": "missing" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "exercise": {
+          "type": "object",
+          "properties": {
+            "save_word_fill": { "type": "string", "const": "confirmed", "description": "SaveExercise type 18 (PasteWordByDrag)" },
+            "save_test": { "type": "string", "const": "confirmed", "description": "SaveExercise type 5 (Test)" },
+            "load": { "type": "string", "const": "confirmed", "description": "LoadExercisesInMaterial" },
+            "delete": { "type": "string", "const": "missing" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "sharing": {
+          "type": "object",
+          "properties": {
+            "get": { "type": "string", "const": "confirmed", "description": "GetSharingMaterial" },
+            "toggle": { "type": "string", "const": "confirmed", "description": "ToggleActiveHref" },
+            "get_id": { "type": "string", "const": "confirmed", "description": "GetIdMaterial" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "tags": {
+          "type": "object",
+          "properties": {
+            "get_book_tags": { "type": "string", "const": "confirmed" },
+            "get_lesson_tags": { "type": "string", "const": "confirmed" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "login": { "type": "string", "const": "confirmed", "description": "AccountWsController.Login" },
+            "get_current_user": { "type": "string", "const": "confirmed", "description": "GetCurrentUser" },
+            "evidence": { "type": "array", "items": { "type": "string" }, "const": ["ProgressMe_WebSocket_Guide.md"] }
+          }
+        },
+        "response_bodies": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string", "const": "missing" },
+            "description": { "type": "string", "const": "Inbound response bodies not captured — AsyncAPI uses additionalProperties: true" }
+          }
+        },
+        "binary_upload": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string", "const": "missing" },
+            "description": { "type": "string", "const": "No binary/package upload operation observed" }
+          }
+        }
+      }
+    }
+  }
+}
