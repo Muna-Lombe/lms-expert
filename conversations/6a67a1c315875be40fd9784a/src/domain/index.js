@@ -1,9 +1,14 @@
 /**
  * Neutral domain model — the canonical entity types that adapters map to/from.
  *
- * These types are vendor-neutral. ProgressMe-specific terminology (BookWsController,
- * LessonSection, etc.) must never leak here. Adapters in src/adapters/ handle
- * the translation between vendor protocol shapes and these neutral types.
+ * These types are vendor-neutral. ProgressMe-specific protocol terminology
+ * (controller names like BookWsController, PascalCase field names like
+ * PasteWordByDrag, ProjectName, etc.) must never leak here. Adapters in
+ * src/adapters/ handle the translation between vendor protocol shapes and
+ * these neutral camelCase types.
+ *
+ * "LessonSection" is a neutral descriptive concept (a section within a
+ * lesson) and is intentionally part of the domain model.
  */
 
 /**

@@ -1,0 +1,9 @@
+feature_id: "FEAT-001"
+slug: "progressme-v1-contract"
+title: "ProgressMe v1 WebSocket Contract"
+status: "contract-reviewed"
+gate: "contract-reviewed"
+created_date: "2026-08-06"
+requirements_count: 5
+depends_on: []
+adapters: ["progressme"]
