@@ -13,7 +13,12 @@
 | TASK-005 | Verify domain model factory functions and ExerciseType enum | REQ-PM-V1-005 | Done | agent |
 | TASK-006 | Grep src/domain/ for ProgressMe-specific terms (expect zero) | REQ-PM-V1-005 | Done | agent |
 | TASK-007 | Test envelope builder with object, string, and empty payloads | REQ-PM-V1-001 | Done | agent |
-| TASK-008 | Update feature.yaml gate to "contract-reviewed" | REQ-PM-V1-001..005 | Todo | agent |
-| TASK-009 | Update CHANGELOG.md with v0.1.0 contract entry | REQ-PM-V1-001..005 | Todo | agent |
-| TASK-010 | Update docs/plans/NOW.md to reflect completed gate | REQ-PM-V1-001..005 | Todo | agent |
-| TASK-011 | Run npm run check — verify 0 errors | REQ-PM-V1-001..005 | Todo | agent |
+| TASK-008 | Write unit tests for domain model factory functions | REQ-PM-V1-005 | Done | agent |
+| TASK-009 | Write contract tests for AsyncAPI spec validation | REQ-PM-V1-001 | Done | agent |
+| TASK-010 | Write contract tests for JSON Schema validation | REQ-PM-V1-002 | Done | agent |
+| TASK-011 | Write contract tests for capability map validation | REQ-PM-V1-004 | Done | agent |
+| TASK-012 | Write negative tests for schema validation failures | REQ-PM-V1-002, REQ-PM-V1-003 | Done | agent |
+| TASK-013 | Update feature.yaml gate to "build-ready" | REQ-PM-V1-001..005 | Done | agent |
+| TASK-014 | Update CHANGELOG.md with test suite completion | REQ-PM-V1-001..005 | Done | agent |
+| TASK-015 | Update docs/plans/NOW.md to reflect build-ready gate | REQ-PM-V1-001..005 | Done | agent |
+| TASK-016 | Run npm run check — verify 0 errors | REQ-PM-V1-001..005 | Done | agent |
