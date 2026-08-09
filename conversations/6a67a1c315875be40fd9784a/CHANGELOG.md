@@ -38,3 +38,17 @@ All notable project and contract changes are recorded here.
 - Test scripts added to package.json: `npm test`, `npm run test:unit`, `npm run test:contract`, `npm run test:negative`.
 - Feature `FEAT-001: progressme-v1-contract` — advanced to gate "build-ready".
 - Total: 213 tests, 0 failures.
+
+## [0.2.0] — 2026-08-09
+
+### Added
+- Infrastructure layer: `WebSocketClient` with dry-run mode (logs envelopes, returns mock responses) and real mode (dynamic `ws` import, RequestId correlation, timeout, reconnection cleanup).
+- Adapter layer: `ProgressMeAdapter` — full domain ↔ ProgressMe payload mapping for Book, Lesson, Exercise (word-fill type 18 and test type 5), plus read operations (getBook, getPersonalBooks, getBookCourses, getCourseLessons, copyBook, loadExercises, getBookTags, getBookLessonTags, getCurrentUser) and login with env-var credential handling.
+- Application layer: use cases `importBook` (fetches book + courses + lessons + exercises), `exportBook` (creates book + lessons + exercises), `createLesson`, `createExercise` — all vendor-neutral with adapter injection.
+- Unit test suite: adapter tests (constructor, connection, payload mapping for book/lesson/exercise, read operations, login, response mappers — 39 tests, all passing).
+- Unit test suite: application tests (importBook, exportBook, createLesson, createExercise, vendor isolation — 13 tests, all passing).
+- Total: 252 tests, 0 failures.
+
+### Changed
+- `src/application/index.js` — renamed domain imports to avoid name collisions with use case exports.
+- `src/adapters/progressme/index.js` — replaced `require()` with static ESM `import` for WebSocketClient.
