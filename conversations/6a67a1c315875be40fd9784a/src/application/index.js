@@ -13,11 +13,24 @@ import {
 } from '../domain/index.js';
 
 /**
+ * Coerce a response body into an array. Handles dry-run mock responses
+ * (which return the request payload, not actual lists) gracefully.
+ * @private
+ */
+function toArray(body, ...keys) {
+  for (const key of keys) {
+    if (body && body[key] && Array.isArray(body[key])) return body[key];
+  }
+  if (Array.isArray(body)) return body;
+  return []; // Non-iterable (e.g., dry-run mock payload) → empty
+}
+
+/**
  * Import a book from an LMS platform into the neutral domain model.
  *
  * Fetches the book and its courses, lessons, and exercises through the adapter.
  * In dry-run mode, the adapter returns mock responses — the structure is
- * correct but the data is synthetic.
+ * correct but the data is synthetic (lists will be empty arrays).
  *
  * @param {Object} adapter - LMS adapter implementing the book operations port.
  * @param {Object} params
@@ -40,13 +53,13 @@ export async function importBook(adapter, { bookId }) {
 
   // Fetch lessons for each course (best-effort)
   let lessons = [];
-  const courseList = coursesResponse?.Body?.Courses ?? coursesResponse?.Body ?? [];
+  const courseList = toArray(coursesResponse?.Body, 'Courses', 'Items');
   for (const course of courseList) {
     const courseId = course.Id ?? course.id;
     if (!courseId) continue;
     try {
       const lessonsResponse = await adapter.getCourseLessons(courseId);
-      const courseLessons = lessonsResponse?.Body?.Lessons ?? lessonsResponse?.Body ?? [];
+      const courseLessons = toArray(lessonsResponse?.Body, 'Lessons', 'Items');
       lessons = lessons.concat(courseLessons);
     } catch {
       // Best-effort: skip if a course fails
@@ -60,7 +73,7 @@ export async function importBook(adapter, { bookId }) {
     if (!lessonId) continue;
     try {
       const exercisesResponse = await adapter.loadExercisesInMaterial(lessonId);
-      const lessonExercises = exercisesResponse?.Body?.Exercises ?? exercisesResponse?.Body ?? [];
+      const lessonExercises = toArray(exercisesResponse?.Body, 'Exercises', 'Items');
       exercises = exercises.concat(lessonExercises);
     } catch {
       // Best-effort: skip if a lesson fails

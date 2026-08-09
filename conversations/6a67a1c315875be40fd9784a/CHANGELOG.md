@@ -52,3 +52,15 @@ All notable project and contract changes are recorded here.
 ### Changed
 - `src/application/index.js` — renamed domain imports to avoid name collisions with use case exports.
 - `src/adapters/progressme/index.js` — replaced `require()` with static ESM `import` for WebSocketClient.
+
+## [0.2.1] — 2026-08-09
+
+### Added
+- Integration test suite: dry-run pipeline tests (book/lesson/exercise end-to-end through real adapter + real WebSocketClient in dry-run — 22 tests, all passing).
+- Integration test suite: use case tests (importBook, exportBook, createLesson, createExercise, full authoring workflow — 13 tests, all passing).
+- `npm run test:integration` script in package.json.
+- Total: 282 tests, 0 failures.
+
+### Changed
+- `src/application/index.js` — added `toArray()` helper to handle non-iterable dry-run mock responses gracefully (returns empty array instead of crashing).
+- `package.json` — version bumped to 0.2.0, added `test:integration` script.
