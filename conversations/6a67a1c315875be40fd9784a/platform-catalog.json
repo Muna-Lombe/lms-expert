@@ -1,0 +1,326 @@
+{
+  "researched_at": "2026-07-27",
+  "count": 40,
+  "platforms": [
+    {
+      "slug": "progressme",
+      "name": "ProgressMe",
+      "category": "Language tutoring LMS",
+      "status": "observed-private-websocket-authoring",
+      "source": "https://progressme.ru/school-api/swagger/index.html",
+      "note": "Official School API Swagger exists. Separately, user-supplied first-party network captures show a private WebSocket RPC surface for book, lesson, exercise, sharing, and user operations; this private contract is not an official public API."
+    },
+    {
+      "slug": "off2class",
+      "name": "Off2Class",
+      "category": "ELT curriculum and LMS",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.off2class.com/",
+      "note": "Tutor-facing curriculum, assignments, and student management; no public developer contract for importing books was found."
+    },
+    {
+      "slug": "diffit",
+      "name": "Diffit",
+      "category": "AI differentiated resources",
+      "status": "no-public-authoring-api-found",
+      "source": "https://web.diffit.me/",
+      "note": "Exports and sharing are UI workflows; no public book/course CRUD API was found."
+    },
+    {
+      "slug": "twee",
+      "name": "Twee",
+      "category": "AI ELT lesson authoring",
+      "status": "no-public-authoring-api-found",
+      "source": "https://twee.com/",
+      "note": "Creates and exports ELT resources in the product; no public developer API was found."
+    },
+    {
+      "slug": "edvibe",
+      "name": "Edvibe",
+      "category": "Language tutoring LMS",
+      "status": "no-public-authoring-api-found",
+      "source": "https://edvibe.com/",
+      "note": "Interactive lessons and courses are product features; no public content-import API was found."
+    },
+    {
+      "slug": "learncube",
+      "name": "LearnCube",
+      "category": "Online language school platform",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.learncube.com/",
+      "note": "Virtual classroom and course materials; no public book CRUD contract was found."
+    },
+    {
+      "slug": "classin",
+      "name": "ClassIn",
+      "category": "Classroom and LMS",
+      "status": "verified-content-write",
+      "source": "https://docs.eeo.cn/api/en/",
+      "note": "Official API creates courses, LMS units and activities and uploads Cloud Drive files."
+    },
+    {
+      "slug": "lessonspace",
+      "name": "Lessonspace",
+      "category": "Virtual classroom",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.thelessonspace.com/",
+      "note": "Classroom embeds/integrations exist; no public course/book authoring contract was found."
+    },
+    {
+      "slug": "tutorbird",
+      "name": "TutorBird",
+      "category": "Tutor business LMS",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.tutorbird.com/",
+      "note": "Tutor administration and resources; no public book authoring API was found."
+    },
+    {
+      "slug": "koala-go",
+      "name": "Koala Go",
+      "category": "Online tutoring classroom",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.koala-go.com/",
+      "note": "Lesson rooms and activities; no public course/book CRUD API was found."
+    },
+    {
+      "slug": "youragora",
+      "name": "YourAgora",
+      "category": "ELT lesson platform",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.youragora.com/",
+      "note": "Lesson building and assignments are UI features; no public authoring API was found."
+    },
+    {
+      "slug": "curipod",
+      "name": "Curipod",
+      "category": "AI interactive lessons",
+      "status": "no-public-authoring-api-found",
+      "source": "https://curipod.com/",
+      "note": "Creates interactive lessons in-product; no public lesson CRUD API was found."
+    },
+    {
+      "slug": "brisk-teaching",
+      "name": "Brisk Teaching",
+      "category": "AI teaching tools",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.briskteaching.com/",
+      "note": "Generates teaching resources; no public course/book API was found."
+    },
+    {
+      "slug": "magicschool",
+      "name": "MagicSchool",
+      "category": "AI teaching tools",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.magicschool.ai/",
+      "note": "Resource generation is exposed through the product, not a documented public authoring API."
+    },
+    {
+      "slug": "eduaide",
+      "name": "Eduaide.Ai",
+      "category": "AI teaching tools",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.eduaide.ai/",
+      "note": "No public course/book CRUD contract was found."
+    },
+    {
+      "slug": "lessonplans-ai",
+      "name": "LessonPlans.ai",
+      "category": "AI lesson planning",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.lessonplans.ai/",
+      "note": "No public lesson/course authoring API was found."
+    },
+    {
+      "slug": "nearpod",
+      "name": "Nearpod",
+      "category": "Interactive lessons",
+      "status": "partner-or-undocumented",
+      "source": "https://nearpod.com/",
+      "note": "Content creation is available in-product; no generally available public content-write contract was verified."
+    },
+    {
+      "slug": "pear-deck-learning",
+      "name": "Pear Deck Learning",
+      "category": "Interactive lessons",
+      "status": "partner-or-undocumented",
+      "source": "https://www.peardeck.com/",
+      "note": "No generally available public deck/course authoring API was verified."
+    },
+    {
+      "slug": "bookwidgets",
+      "name": "BookWidgets",
+      "category": "Interactive exercises",
+      "status": "partner-or-undocumented",
+      "source": "https://www.bookwidgets.com/",
+      "note": "Widget authoring is in-product; no public CRUD contract was verified."
+    },
+    {
+      "slug": "lessonup",
+      "name": "LessonUp",
+      "category": "Interactive lessons",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.lessonup.com/",
+      "note": "No public lesson CRUD API was found."
+    },
+    {
+      "slug": "genially",
+      "name": "Genially",
+      "category": "Interactive content authoring",
+      "status": "partner-or-undocumented",
+      "source": "https://genially.com/",
+      "note": "Embedding is supported, but a general public content-authoring API was not verified."
+    },
+    {
+      "slug": "canva-education",
+      "name": "Canva for Education",
+      "category": "Content authoring",
+      "status": "partner-or-undocumented",
+      "source": "https://www.canva.com/education/",
+      "note": "Developer APIs do not expose a verified LMS book/course hierarchy for tutor imports."
+    },
+    {
+      "slug": "canvas",
+      "name": "Canvas LMS",
+      "category": "Institutional LMS",
+      "status": "verified-content-write",
+      "source": "https://developerdocs.instructure.com/services/canvas",
+      "note": "Official REST APIs create courses, modules, module items, pages and files."
+    },
+    {
+      "slug": "moodle",
+      "name": "Moodle",
+      "category": "Open-source LMS",
+      "status": "partial-content-write",
+      "source": "https://moodledev.io/docs/5.0/apis/subsystems/external",
+      "note": "Core external functions create courses and upload files; creating a Book/activity requires a custom external service or plugin."
+    },
+    {
+      "slug": "google-classroom",
+      "name": "Google Classroom",
+      "category": "Classroom LMS",
+      "status": "partial-content-write",
+      "source": "https://developers.google.com/classroom/reference/rest",
+      "note": "API creates courses, coursework and materials; it is not a book-authoring API and files are normally supplied through Drive."
+    },
+    {
+      "slug": "thinkific",
+      "name": "Thinkific",
+      "category": "Course platform",
+      "status": "admin-api-content-write-unverified",
+      "source": "https://developers.thinkific.com/api/api-documentation/",
+      "note": "Admin API is public, but an end-to-end public contract for creating chapters/content and uploading a book was not verified."
+    },
+    {
+      "slug": "teachable",
+      "name": "Teachable",
+      "category": "Course platform",
+      "status": "admin-api-content-write-limited",
+      "source": "https://docs.teachable.com/",
+      "note": "Public API coverage is primarily school/business data; complete curriculum authoring/import is not documented as a general API."
+    },
+    {
+      "slug": "kajabi",
+      "name": "Kajabi",
+      "category": "Course and marketing platform",
+      "status": "partner-or-undocumented",
+      "source": "https://developers.kajabi.com/",
+      "note": "Public developer coverage does not expose a verified general book/curriculum import workflow."
+    },
+    {
+      "slug": "learnworlds",
+      "name": "LearnWorlds",
+      "category": "Course platform",
+      "status": "admin-api-content-write-limited",
+      "source": "https://www.learnworlds.dev/docs/api/",
+      "note": "Official API covers courses and administration; complete learning-activity authoring/upload was not verified."
+    },
+    {
+      "slug": "podia",
+      "name": "Podia",
+      "category": "Creator course platform",
+      "status": "no-public-authoring-api-found",
+      "source": "https://www.podia.com/",
+      "note": "No public course/book authoring API was found."
+    },
+    {
+      "slug": "learndash",
+      "name": "LearnDash",
+      "category": "WordPress LMS",
+      "status": "verified-runtime-openapi",
+      "source": "https://developers.learndash.com/learndash-rest-api-ldlms-v2/",
+      "note": "REST v2 supports course/lesson/topic CRUD; exact schema should be downloaded from the installed site's OpenAPI/runtime index."
+    },
+    {
+      "slug": "tutor-lms-pro",
+      "name": "Tutor LMS Pro",
+      "category": "WordPress LMS",
+      "status": "verified-content-write",
+      "source": "https://docs.themeum.com/tutor-lms/developer-documentation/rest-apis-for-tutor-lms-pro/",
+      "note": "Official Pro REST API documents course/topic/lesson CRUD; uploads use WordPress Media REST."
+    },
+    {
+      "slug": "lifterlms",
+      "name": "LifterLMS",
+      "category": "WordPress LMS",
+      "status": "verified-content-write",
+      "source": "https://developer.lifterlms.com/rest-api/",
+      "note": "Official OpenAPI-backed REST API provides course/section/lesson CRUD; uploads use WordPress Media REST."
+    },
+    {
+      "slug": "talentlms",
+      "name": "TalentLMS",
+      "category": "Business LMS",
+      "status": "admin-api-content-write-limited",
+      "source": "https://help.talentlms.com/hc/en-us/articles/24874457011356-TalentLMS-API-V2",
+      "note": "Official API manages courses, but a complete unit/book file-import contract was not verified."
+    },
+    {
+      "slug": "360learning",
+      "name": "360Learning",
+      "category": "Collaborative LMS",
+      "status": "admin-api-content-write-limited",
+      "source": "https://360learning.readme.io/docs/introduction",
+      "note": "Official API automates courses and external content; native chapter/book authoring coverage is limited."
+    },
+    {
+      "slug": "docebo",
+      "name": "Docebo",
+      "category": "Enterprise LMS",
+      "status": "tenant-api-browser",
+      "source": "https://developer.docebo.com/docs/api-general-information",
+      "note": "Each tenant exposes an API Browser; content import operations must be taken from that tenant's generated contract."
+    },
+    {
+      "slug": "absorb",
+      "name": "Absorb LMS",
+      "category": "Enterprise LMS",
+      "status": "partner-or-licensed-api",
+      "source": "https://docs.myabsorb.com/",
+      "note": "API access and exact operations depend on the customer account; no universal public book-import contract was verified."
+    },
+    {
+      "slug": "open-edx",
+      "name": "Open edX",
+      "category": "Open-source LMS",
+      "status": "plugin-or-internal-authoring-api",
+      "source": "https://docs.openedx.org/",
+      "note": "Course authoring/import is deployment-specific; no stable universal public CRUD API for Studio books was verified."
+    },
+    {
+      "slug": "h5p",
+      "name": "H5P",
+      "category": "Interactive content format",
+      "status": "format-and-integration-api",
+      "source": "https://h5p.org/documentation/for-developers",
+      "note": "H5P packages are portable content units, not a full LMS course/book CRUD service; host-specific APIs apply."
+    },
+    {
+      "slug": "scorm-cloud",
+      "name": "SCORM Cloud",
+      "category": "Standards content delivery",
+      "status": "verified-package-import",
+      "source": "https://cloud.scorm.com/docs/api/",
+      "note": "Official API imports SCORM/xAPI/AICC/cmi5 packages and manages registrations; it does not author native books."
+    }
+  ]
+}

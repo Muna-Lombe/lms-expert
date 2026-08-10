@@ -1,0 +1,18 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+
+# Sensitive capture material must remain outside the repository.
+*.har
+*.har.json
+raw-captures/
+evidence/private/
+
+# Local runtime state
+.cache/
+.tmp/
+*.log
+

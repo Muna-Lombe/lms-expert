@@ -1,0 +1,624 @@
+asyncapi: 3.0.0
+info:
+  title: ProgressMe WebSocket Authoring API
+  version: 0.1.0
+  description: >
+    Observed private WebSocket RPC protocol for ProgressMe/Edvibe book, lesson,
+    and exercise authoring. This is NOT an official public API. Treat as
+    version-sensitive. See docs/core/PROGRESSME_STATUS.md for contract status.
+  x-status: observed-private-websocket-authoring
+  x-research-date: '2026-07-28'
+
+servers:
+  progressme-ws:
+    host: '{host}'
+    pathname: '{wsPath}'
+    protocol: wss
+    description: ProgressMe WebSocket endpoint (path not yet captured).
+    variables:
+      host:
+        description: WebSocket server host (e.g. progressme.ru or proxy-a.edvibe.com).
+        default: progressme.ru
+      wsPath:
+        description: WebSocket path (not yet captured; env.example uses /websocket).
+        default: /websocket
+      token:
+        description: Short-lived session token passed as query parameter.
+        default: '{token}'
+
+channels:
+  rpcChannel:
+    address: '{wsPath}?Page=TeacherProfile&isSharing=True&token={token}'
+    description: >
+      Single bidirectional WebSocket channel. All operations use the same
+      canonical request envelope. Responses are correlated by RequestId.
+    messages:
+      request:
+        $ref: '#/components/messages/Envelope'
+      response:
+        $ref: '#/components/messages/GenericResponse'
+
+operations:
+  # --- Book operations ---
+  getBook:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetBookRequest'
+  getPersonalBooks:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetPersonalBooksRequest'
+  bookUpsert:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/BookUpsertRequest'
+  copyBook:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/CopyBookRequest'
+  saveBookUserLastLogin:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/SaveBookUserLastLoginRequest'
+  isCanCopyMaterial:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/IsCanCopyMaterialRequest'
+  isCanSharingMaterial:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/IsCanSharingMaterialRequest'
+  getTeacherBuyiedBookIds:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetTeacherBuyiedBookIdsRequest'
+  getCountPupilsUsedBooks:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetCountPupilsUsedBooksRequest'
+
+  # --- Course operations ---
+  getBookCourses:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetBookCoursesRequest'
+
+  # --- Lesson operations ---
+  getCourseLessons:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetCourseLessonsRequest'
+  lessonUpsert:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/LessonUpsertRequest'
+  getLessonWithId:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetLessonWithIdRequest'
+  checkIsOriginalLessonInMarathon:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/CheckIsOriginalLessonInMarathonRequest'
+
+  # --- Exercise operations ---
+  loadExercisesInMaterial:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/LoadExercisesInMaterialRequest'
+  saveExerciseWordFill:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/SaveExerciseWordFillRequest'
+  saveExerciseTest:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/SaveExerciseTestRequest'
+
+  # --- Tags operations ---
+  getBookTags:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetBookTagsRequest'
+  getBookLessonTags:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetBookLessonTagsRequest'
+
+  # --- Sharing operations ---
+  getSharingMaterial:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetSharingMaterialRequest'
+  toggleActiveHref:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/ToggleActiveHrefRequest'
+  getIdMaterial:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetIdMaterialRequest'
+
+  # --- User operations ---
+  login:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/LoginRequest'
+  getCurrentUser:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetCurrentUserRequest'
+  getSettingsSource:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetSettingsSourceRequest'
+  getUsersInfoForBookAccessStatus:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetUsersInfoForBookAccessStatusRequest'
+  getIpInfo:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetIpInfoRequest'
+  getPersonalProfile:
+    action: send
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GetPersonalProfileRequest'
+
+  # --- Response ---
+  receiveResponse:
+    action: receive
+    channel:
+      $ref: '#/channels/rpcChannel'
+    messages:
+      - $ref: '#/components/messages/GenericResponse'
+
+components:
+  messages:
+    Envelope:
+      description: Canonical request envelope for all ProgressMe WebSocket operations.
+      headers:
+        type: object
+        properties:
+          Controller:
+            type: string
+            description: WebSocket controller name (e.g. BookWsController).
+          Method:
+            type: string
+            description: Method name (e.g. BookUpsert).
+          ProjectName:
+            type: string
+            description: Project namespace (e.g. Books, Users, MainWs).
+          RequestId:
+            type: string
+            format: uuid
+            description: Unique UUID generated per call. Used to correlate responses.
+        required:
+          - Controller
+          - Method
+          - ProjectName
+          - RequestId
+      payload:
+        type: string
+        description: JSON.stringify(payload) — always a string, not a nested object.
+
+    GenericResponse:
+      description: >
+        Untyped response body. Inbound frames have not been captured.
+        The response is correlated by RequestId. Until correlated captures
+        exist, this payload is intentionally untyped.
+      payload:
+        type: object
+        additionalProperties: true
+        description: Response body not yet captured — do not invent a schema.
+
+    GetBookRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+        description: '{"BookId":801168}'
+
+    GetPersonalBooksRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+        description: '"" — encoded empty string.'
+
+    BookUpsertRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+        description: >
+          JSON.stringify of BookUpsertPayload. Id:null creates; non-null Id updates.
+
+    CopyBookRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+        description: '{"BookId":801168,"IsVisible":true,"IsProtectedCopyright":true}'
+
+    SaveBookUserLastLoginRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+
+    IsCanCopyMaterialRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+
+    IsCanSharingMaterialRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+
+    GetTeacherBuyiedBookIdsRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+
+    GetCountPupilsUsedBooksRequest:
+      headers:
+        $ref: '#/components/schemas/BookControllerHeader'
+      payload:
+        type: string
+
+    GetBookCoursesRequest:
+      headers:
+        $ref: '#/components/schemas/CourseControllerHeader'
+      payload:
+        type: string
+
+    GetCourseLessonsRequest:
+      headers:
+        $ref: '#/components/schemas/LessonControllerHeader'
+      payload:
+        type: string
+
+    LessonUpsertRequest:
+      headers:
+        $ref: '#/components/schemas/LessonControllerHeader'
+      payload:
+        type: string
+        description: >
+          JSON.stringify of LessonUpsertPayload. Id:0 creates; non-zero Id updates.
+
+    GetLessonWithIdRequest:
+      headers:
+        $ref: '#/components/schemas/LessonControllerHeader'
+      payload:
+        type: string
+
+    CheckIsOriginalLessonInMarathonRequest:
+      headers:
+        $ref: '#/components/schemas/LessonControllerHeader'
+      payload:
+        type: string
+
+    LoadExercisesInMaterialRequest:
+      headers:
+        $ref: '#/components/schemas/ExerciseControllerHeader'
+      payload:
+        type: string
+
+    SaveExerciseWordFillRequest:
+      headers:
+        $ref: '#/components/schemas/ExerciseControllerHeader'
+      payload:
+        type: string
+        description: JSON.stringify of SaveExercisePayload with Type:18.
+
+    SaveExerciseTestRequest:
+      headers:
+        $ref: '#/components/schemas/ExerciseControllerHeader'
+      payload:
+        type: string
+        description: JSON.stringify of SaveExercisePayload with Type:5.
+
+    GetBookTagsRequest:
+      headers:
+        $ref: '#/components/schemas/TagsControllerHeader'
+      payload:
+        type: string
+
+    GetBookLessonTagsRequest:
+      headers:
+        $ref: '#/components/schemas/TagsControllerHeader'
+      payload:
+        type: string
+
+    GetSharingMaterialRequest:
+      headers:
+        $ref: '#/components/schemas/SharingControllerHeader'
+      payload:
+        type: string
+
+    ToggleActiveHrefRequest:
+      headers:
+        $ref: '#/components/schemas/SharingControllerHeader'
+      payload:
+        type: string
+
+    GetIdMaterialRequest:
+      headers:
+        $ref: '#/components/schemas/SharingControllerHeader'
+      payload:
+        type: string
+
+    LoginRequest:
+      headers:
+        $ref: '#/components/schemas/AccountControllerHeader'
+      payload:
+        type: string
+        description: >
+          JSON.stringify of LoginPayload. Credentials via env vars only —
+          PROGRESSME_EMAIL, PROGRESSME_PASSWORD, PROGRESSME_AUTH_TOKEN.
+
+    GetCurrentUserRequest:
+      headers:
+        $ref: '#/components/schemas/AccountControllerHeader'
+      payload:
+        type: string
+
+    GetSettingsSourceRequest:
+      headers:
+        type: object
+        properties:
+          Controller:
+            const: UserWsController
+          Method:
+            const: GetSettingsSource
+          ProjectName:
+            const: Users
+          RequestId:
+            type: string
+            format: uuid
+      payload:
+        type: string
+
+    GetUsersInfoForBookAccessStatusRequest:
+      headers:
+        type: object
+        properties:
+          Controller:
+            const: LessonWsController
+          Method:
+            const: GetUsersInfoForBookAccessStatus
+          ProjectName:
+            const: MainWs
+          RequestId:
+            type: string
+            format: uuid
+      payload:
+        type: string
+
+    GetIpInfoRequest:
+      headers:
+        type: object
+        properties:
+          Controller:
+            const: UserWsController
+          Method:
+            const: GetIpInfo
+          ProjectName:
+            const: MainWs
+          RequestId:
+            type: string
+            format: uuid
+      payload:
+        type: string
+
+    GetPersonalProfileRequest:
+      headers:
+        type: object
+        properties:
+          Controller:
+            const: ProfileBlockController
+          Method:
+            const: GetPersonalProfile
+          ProjectName:
+            const: MainWs
+          RequestId:
+            type: string
+            format: uuid
+      payload:
+        type: string
+
+  schemas:
+    BookControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          enum: [BookWsController]
+        Method:
+          type: string
+          enum:
+            - GetBook
+            - GetPersonalBooks
+            - BookUpsert
+            - CopyBook
+            - SaveBookUserLastLogin
+            - IsCanCopyMaterial
+            - IsCanSharingMaterial
+            - GetTeacherBuyiedBookIds
+            - GetCountPupilsUsedBooks
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    CourseControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: CourseWsController
+        Method:
+          type: string
+          const: GetBookCourses
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    LessonControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: LessonWsController
+        Method:
+          type: string
+          enum:
+            - GetCourseLessons
+            - LessonUpsert
+            - GetLessonWithId
+            - CheckIsOriginalLessonInMarathon
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    ExerciseControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: ExerciseWsController
+        Method:
+          type: string
+          enum:
+            - LoadExercisesInMaterial
+            - SaveExercise
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    TagsControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: MaterialTagsWsController
+        Method:
+          type: string
+          enum:
+            - GetBookTags
+            - GetBookLessonTags
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    SharingControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: SharingMaterialWsController
+        Method:
+          type: string
+          enum:
+            - GetSharingMaterial
+            - ToggleActiveHref
+            - GetIdMaterial
+        ProjectName:
+          type: string
+          const: Books
+        RequestId:
+          type: string
+          format: uuid
+
+    AccountControllerHeader:
+      type: object
+      properties:
+        Controller:
+          type: string
+          const: AccountWsController
+        Method:
+          type: string
+          enum:
+            - Login
+            - GetCurrentUser
+        ProjectName:
+          type: string
+          const: Users
+        RequestId:
+          type: string
+          format: uuid

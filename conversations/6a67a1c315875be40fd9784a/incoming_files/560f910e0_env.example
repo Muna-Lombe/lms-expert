@@ -1,0 +1,8 @@
+# Copy to .env locally. Never commit real values.
+PROGRESSME_WS_URL=wss://proxy-a.edvibe.com/websocket
+PROGRESSME_MEDIA_BASE_URL=https://media-files-a.edvibe.com
+PROGRESSME_TOKEN=
+PROGRESSME_DOMAIN=edvibe.com
+LOG_LEVEL=info
+DRY_RUN=true
+

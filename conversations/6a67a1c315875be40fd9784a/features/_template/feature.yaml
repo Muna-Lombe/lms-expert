@@ -1,0 +1,9 @@
+feature_id: "FEAT-NNN"
+slug: "feature-slug"
+title: "Feature Title Placeholder"
+status: "drafted"
+gate: "drafted"
+created_date: "YYYY-MM-DD"
+requirements_count: 0
+depends_on: []
+adapters: []
